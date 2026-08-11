@@ -131,7 +131,11 @@ The function provides login mechanism to a developer user during development pha
 @app.route('/devlogin', methods=['POST'])
 def devlogin():
     user=request.form['username']
-    Responsemsg="Correct Credentials"
+    u = User.query.filter(User.username == user).first()
+    if u and u.password == request.form["password"]:
+        Responsemsg="Correct Credentials"
+    else:
+        Responsemsg="Wrong Credentials"
     data = {"message" : Responsemsg, "user": user}
     print makejson(data)
     return makejson(data)
