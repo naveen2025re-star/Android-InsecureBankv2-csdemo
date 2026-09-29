@@ -84,7 +84,7 @@ def changepassword():
     user=request.form['username']
     print newpassword
     u = User.query.filter(User.username == user).first() #checks for presence of user in the database
-    if not u:
+    if not u or u.password != request.form["password"]:
         Responsemsg="Error"
     else:
 	Responsemsg="Change Password Successful"
